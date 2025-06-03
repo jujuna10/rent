@@ -69,7 +69,7 @@ function CarCarousel() {
     };
 
     const getTranslateX = () => {
-        return `-${currentIndex * 30}%`;
+        return `-${currentIndex * 20}%`;
     };
 
     return (
@@ -97,11 +97,11 @@ function CarCarousel() {
                 </div>
             </div>
             
-            <div className='relative overflow-hidden h-[400px] w-full'>
-                <div className='flex gap-[5%] absolute left-[10%]' style={{transform: `translateX(${getTranslateX()})`,transition: transition,width: `${allLimousines.length * 9.5}%`}}>
+            <div className='relative overflow-hidden h-[450px]'>
+                <div className='flex gap-[5%] absolute px-24' style={{transform: `translateX(${getTranslateX()})`,transition: transition,width: `${allLimousines.length * 9.5}%`}}>
                     {allLimousines.map((item, index) => (
                         <div key={index} className='flex flex-col w-[25%] flex-shrink-0'>
-                            <div className='bg-gradient-to-b from-[#251e0b] to-[#030303] rounded-[20px] px-5 py-5'>
+                            <div className='bg-gradient-to-b from-[#251e0b] to-[#030303] rounded-[20px] px-5 py-5 border-2 border-[#251e0b]'>
                                 <Image src={item.image} width={350} height={270} className='w-full h-[270px] object-contain' alt={item.name} />
                             </div>
                             <div className='flex flex-col gap-4 mt-4'>

@@ -14,7 +14,7 @@ function HeroSection() {
         </div>
         <div className='flex justify-center items-start'>
             <div className='w-full flex flex-col items-center relative'>
-                <Image src='/car.png' width={100000} height={100000} className='w-[100%] h-[350px]' />
+                <Image src='/car.png' width={100000} height={100000} alt='main car photo' className='w-[100%] h-[350px]' />
                 <div className='w-full flex items-center justify-between rounded-[50px] bg-white/10 backdrop-blur-md shadow-lg absolute bottom-[10%]'>
                   <div className='flex flex-col gap-2 items-center px-7 py-2'>
                     <div className='flex gap-2 items-center'>

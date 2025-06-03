@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import Services from "@/components/Services";
 import Statistic from "@/components/Statistic";
+import WhyChoose from "@/components/WhyChoose";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <Cities />
       <Services />
       <CarCarousel />
+      <WhyChoose />
     </div>
 
   );
