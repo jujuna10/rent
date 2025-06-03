@@ -1,3 +1,4 @@
+import CarCarousel from "@/components/CarCarousel";
 import Cities from "@/components/Cities";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
@@ -18,6 +19,7 @@ export default function Home() {
       <Statistic />
       <Cities />
       <Services />
+      <CarCarousel />
     </div>
 
   );
