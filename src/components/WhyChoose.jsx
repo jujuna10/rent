@@ -36,7 +36,7 @@ function WhyChoose() {
                     </div>
                     <div className='flex flex-col items-center'>
                         <p className='text-white text-[25px] font-semibold'>{item.title}</p>
-                        <p className='text-gray-400 text-[15px]'>{item.text}</p>
+                        <p className='text-gray-400 text-[15px] text-center'>{item.text}</p>
                     </div>
                 </div>
             ))}
