@@ -3,10 +3,6 @@ import React from 'react'
 import { Quote } from 'lucide-react';
 
 
-
-
-
-
 function Client() {
     const clients = [
         {

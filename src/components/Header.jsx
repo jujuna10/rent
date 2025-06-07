@@ -1,10 +1,12 @@
 'use client'
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 function Header() {
 
   const [user,setUser] = useState('')
   const [sessionId,setSessionId] = useState('')
+  const router = useRouter()
   if(sessionId){
     localStorage.setItem("session", JSON.stringify(sessionId));
   }
@@ -41,9 +43,6 @@ function Header() {
         console.log(res)
         setSessionId(res.result.session_id)
 
-
-
-
       } catch (error) {
         console.error("შეცდომა:", error);
         if (error.name === "TypeError" && error.message.includes("Failed to fetch")) {
@@ -69,7 +68,7 @@ function Header() {
       </div>
       <div className="flex gap-12 items-center group">
         <button className="px-4 py-2 rounded-[20px] transition-all duration-500 text-white hover:bg-[rgb(255,203,103)] hover:text-black hover:cursor-pointer">Sign In</button>
-        <button className="px-4 py-2 rounded-[20px] transition-all duration-500 bg-[rgb(255,203,103)] text-black group-hover:bg-black hover:cursor-pointer group-hover:text-white hover:text-white hover:bg-black">Sign Up</button>
+        <button className="px-4 py-2 rounded-[20px] transition-all duration-500 bg-[rgb(255,203,103)] text-black group-hover:bg-black hover:cursor-pointer group-hover:text-white hover:text-white hover:bg-black" onClick={() => router.push('/register')}>Sign Up</button>
         <p className='text-white custom-shadow'>{user}</p>
       </div>
 

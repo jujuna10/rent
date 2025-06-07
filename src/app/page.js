@@ -1,6 +1,8 @@
+import Book from "@/components/Book";
 import CarCarousel from "@/components/CarCarousel";
 import Cities from "@/components/Cities";
 import Client from "@/components/Client";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import Services from "@/components/Services";
@@ -24,6 +26,8 @@ export default function Home() {
       <CarCarousel />
       <WhyChoose />
       <Client />
+      <Book />
+      <Footer />
     </div>
 
   );
