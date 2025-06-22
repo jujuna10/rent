@@ -67,7 +67,7 @@ function Header() {
         ))}
       </div>
       <div className="flex gap-12 items-center group">
-        <button className="px-4 py-2 rounded-[20px] transition-all duration-500 text-white hover:bg-[rgb(255,203,103)] hover:text-black hover:cursor-pointer">Sign In</button>
+        <button className="px-4 py-2 rounded-[20px] transition-all duration-500 text-white hover:bg-[rgb(255,203,103)] hover:text-black hover:cursor-pointer" onClick={() => router.push('/login')}>Sign In</button>
         <button className="px-4 py-2 rounded-[20px] transition-all duration-500 bg-[rgb(255,203,103)] text-black group-hover:bg-black hover:cursor-pointer group-hover:text-white hover:text-white hover:bg-black" onClick={() => router.push('/register')}>Sign Up</button>
         <p className='text-white custom-shadow'>{user}</p>
       </div>
