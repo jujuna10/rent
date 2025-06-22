@@ -40,7 +40,7 @@ function Header() {
         const res = await response.json();
         setUser(res.result.name)
         console.log(res.result.name)
-        console.log(res)
+        console.log(res.result)
         setSessionId(res.result.session_id)
 
       } catch (error) {

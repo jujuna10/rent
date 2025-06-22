@@ -32,17 +32,25 @@ const InputField = ({ id, name, type, placeholder, label, value, onChange, requi
 
 const Page = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
     email: '',
     password: ''
   });
   const {user,setUser} = useContext(UserContext)
   const [isSuccess, setIsSuccess] = useState(false);
   const [particles, setParticles] = useState([]);
+  const [sessionId,setSessionId] = useState('')
+  const [expireDate,setExpireDate] = useState('')
   const router = useRouter()
 
 
+
+  const payload = {
+    params: {
+      db: "travel",
+      login: formData.email,
+      password: formData.password,
+    },
+  };
 
   useEffect(() => {
     const particleArray = [];
@@ -71,7 +79,7 @@ const Page = () => {
     const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.password) {
+    if (!formData.email || !formData.password) {
     alert('გთხოვთ შეავსოთ ყველა ველი');
     return;
     }
@@ -83,40 +91,76 @@ const Page = () => {
     }
 
 
-    try {
-    const response = await fetch("http://localhost:8069/web/registration", {
-        method: "POST",
-        headers: {
-        "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-    });
+    // try {
+    // const response = await fetch("http://localhost:8069/web/", {
+    //     method: "POST",
+    //     headers: {
+    //     "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(formData),
+    // });
 
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-    }
+    // if (!response.ok) {
+    //     throw new Error(`HTTP error! status: ${response.status}`);
+    // }
 
-    const data = await response.json();
-    console.log("წარმატება:", data);
-    router.push('/code')
-    setIsSuccess(true);
+    // const data = await response.json();
+    // console.log("წარმატება:", data);
+    // router.push('/code')
+    // setIsSuccess(true);
     
-    // ფორმის გასუფთავება
-    setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: ''
-    });
+    // // ფორმის გასუფთავება
+    // setFormData({
+    //     firstName: '',
+    //     lastName: '',
+    //     email: '',
+    //     password: ''
+    // });
 
-    setTimeout(() => {
-        setIsSuccess(false);
-    }, 3000);
+    // setTimeout(() => {
+    //     setIsSuccess(false);
+    // }, 3000);
 
-    } catch (error) {
-    console.error("შეცდომა:", error);
-    alert('დაფიქსირდა შეცდომა. გთხოვთ სცადოთ თავიდან.');
-    }
+    // } catch (error) {
+    // console.error("შეცდომა:", error);
+    // alert('დაფიქსირდა შეცდომა. გთხოვთ სცადოთ თავიდან.');
+    // }
+    const authenticate = async () => {
+        try {
+          const response = await fetch("http://localhost:8069/web/session/authenticate", {
+            method: "POST",
+            mode: "cors",
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload),
+          });
+  
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+  
+          const res = await response.json();
+          setUser(res.result.name)
+          console.log(res.result.name)
+          console.log(res.result)
+          setSessionId(res.result.session_id)
+          setExpireDate(res.result.expiry_date)
+          const cookieExpireDate = new Date(expireDate.replace(" ", "T") + "Z");
+
+          document.cookie = `expiryDate=${sessionId}; expires=${cookieExpireDate.toUTCString()}; path=/`;
+
+  
+        } catch (error) {
+          console.error("შეცდომა:", error);
+          if (error.name === "TypeError" && error.message.includes("Failed to fetch")) {
+            console.error("კავშირის პრობლემა - შეამოწმეთ სერვერი და ქსელი", error);
+          }
+        }
+      };
+  
+      authenticate();
     };
 
   return (
@@ -146,28 +190,10 @@ const Page = () => {
           className={`relative bg-gray-900/95 backdrop-blur-xl border rounded-3xl p-10 shadow-2xl shadow-black/80 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-blue-500/20 hover:shadow-2xl ${isSuccess ? 'animate-pulse border-green-500' : 'border-blue-500/30'}`}
         >
           <h1 className="text-4xl font-bold text-center mb-2 bg-gradient-to-r from-blue-500 via-cyan-500 to-purple-500 bg-clip-text text-transparent">
-            რეგისტრაცია
+            ავტორიზაცია
           </h1>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            <InputField
-              id="firstName"
-              name="firstName"
-              type="text"
-              placeholder="სახელი"
-              label="სახელი"
-              value={formData.firstName}
-              onChange={handleInputChange}
-            />
-            <InputField
-              id="lastName"
-              name="lastName"
-              type="text"
-              placeholder="გვარი"
-              label="გვარი"
-              value={formData.lastName}
-              onChange={handleInputChange}
-            />
             <InputField
               id="email"
               name="email"
@@ -191,7 +217,7 @@ const Page = () => {
               type="submit"  // აუცილებელია
               className="w-full py-4 px-6 text-white text-lg font-bold rounded-xl … bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
             >
-              რეგისტრაცია
+              შესვლა
             </button>
           </form>
         </div>
