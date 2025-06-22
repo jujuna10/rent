@@ -1,6 +1,8 @@
 'use client'
 import { UserContext } from '@/context/UserContext';
 import { useState, useEffect, useRef, useContext, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
+
 
 
 const CodeInput = ({ value, onChange, onKeyDown, inputRef, index }) => {
@@ -35,6 +37,8 @@ const Page = () => {
   const {user,setUser} = useContext(UserContext)
   console.log(user,'code')
   const [codeAuth,setCodeAuth] = useState(null)
+  const router = useRouter()
+
   
   // console.log(codeAuth.code)
 
@@ -150,6 +154,7 @@ const Page = () => {
         setIsLoading(false)
         setCode(['', '', '', ''])
         alert('correct')
+        router.push('/profile')
       }
       else{
         alert('incorrect')
